@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backbone JS - Router Example App</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <main></main>
+
+  <script type="text/template" id="dogs-index-template">
+    <% _.each(dogs, function (dog, index) { %>
+      <div class="dog">
+        <h2><%= dog.fullname %></h2>
+        <p>age: <%= dog.age %><br>
+        fleas: <%= dog.fleas %></p>
+        <p><a class="show" href="#dogs/<%= index %>">Show</a><br>
+        <a class="update" href="#dogs/<%= index %>/update">Update</a><br>
+        <a class="destroy" href="#dogs/<%= index %>/destroy">Destroy</a></p>
+      </div>
+    <% }); %>
+    <p><a class="clear" href="#dogs/create">NEW</a></p>
+  </script>
+
+  <script type="text/template" id="dog-edit-template">
+    <div class="dog">
+      <label>Name: <input type="text" class="fullname" value="<%= fullname %>"></label><br>
+      <label>Age: <input type="text" class="age" value="<%= age %>"></label><br>
+      <label>Fleas: <input type="text" class="fleas" value="<%= fleas %>"></label>
+      <p><a class="update" href="#">Update</a></p>
+    </div>
+  </script>
+
+  <script type="text/template" id="dog-show-template">
+    <div class="dog">
+      <h2><%= fullname %></h2>
+      <p>age: <%= age %><br>
+      fleas: <%= fleas %></p>
+      <p><a class="cancel" href="#dogs">Go Back</a></p>
+    </div>
+  </script>
+  
+  <script src="js/lib/jquery-min.js"></script>
+  <script src="js/lib/underscore-min.js"></script>
+  <script src="js/lib/backbone-min.js"></script>
+  <script src="js/views/dogs/index.js"></script>
+  <script src="js/views/dogs/show.js"></script>
+  <script src="js/views/dogs/update.js"></script>
+  <script src="js/models/dog.js"></script>
+  <script src="js/collections/dogs.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
