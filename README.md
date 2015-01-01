@@ -1,3 +1,3 @@
-# Backbone JS - Router Example App
+# Backbone JS - AJAX Synchronized Example App
 
-Simple Backbone App demonstrating setting and handling routes.
+Simple Backbone App demonstrating synching your app to an external database.
