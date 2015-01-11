@@ -7,8 +7,6 @@ DogEditView = Backbone.View.extend({
     'click .cancel': 'cancel'
   },
 
-  // hitting back button here is like cancel, but creates a zombie model! Must fix.
-
   saveModel: function () {
     this.model.save({
       fullname: $('.fullname').val(),
@@ -18,34 +16,29 @@ DogEditView = Backbone.View.extend({
   },
 
   submit: function (event) {
-    if (this.model.isNew()) {
-      dogs.add(this.model); // add to collection.
+    if (this.model) {
       this.saveModel();
     } else {
+      var dog = new Dog();
+      this.model = dog; 
+      dogs.add(dog);
       this.saveModel();
     }
     event.preventDefault();
   },
 
   cancel: function (event) {
-    if (this.model.isNew()) {
-      this.model.destroy(); // returns false because the model does not yet exist on the server.
-      router.navigate('dogs', {trigger: true}); // force router to navigate since destroy event doesn't trigger on model.
-    } else {
-      router.navigate('dogs', {trigger: true});
-    }
+    router.navigate('dogs', {trigger: true});
     event.preventDefault();
   },
 
   render: function () {
-    if (this.model.isNew()) {
-      var adjective = 'New',
-          verb = 'Create';
+    if (this.model) {
+      this.$el.html(this.template({adj: 'Edit', verb: 'Update', dog: this.model.toJSON()}));
+      return this.el;
     } else {
-      var adjective = 'Edit',
-          verb = 'Update';
+      this.$el.html(this.template({adj: 'New', verb: 'Create', dog: {fullname: null, age: null, fleas: null}}));
+      return this.el;
     }
-    this.$el.html(this.template({adj:adjective, verb: verb, dog: this.model.toJSON()}));
-    return this.el;
   }
 });
