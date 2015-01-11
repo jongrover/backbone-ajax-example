@@ -18,7 +18,7 @@ Router = Backbone.Router.extend({
 
   new: function () {
     var dog = new Dog();
-    dogs.add(dog);
+    // dogs.add(dog);
     dog.editView = new DogEditView({model: dog});
     this.displayView(dog.editView);
   },
