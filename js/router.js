@@ -1,15 +1,14 @@
 Router = Backbone.Router.extend({
 
   routes: {
-    'dogs/create': 'create',        // #dogs/create
-    'dogs/:id/update': 'update',    // #dogs/0/update
-    'dogs/:id/destroy': 'destroy',  // #dogs/0/destroy
-    'dogs/:id': 'show',             // #dogs/0
-    'dogs': 'index',                // #dogs
-    '': 'index'                     // #
-  },
+    'dogs/new': 'new',         // #dogs/new
+    'dogs/:id/edit': 'edit',   // #dogs/1/edit
+    'dogs/:id': 'show',        // #dogs/1
+    'dogs': 'index',           // #dogs
+    '': 'index'                // #
+  }, 
 
-  showView: function (view) {
+  displayView: function (view) {
     if (this.currentView) {
       this.currentView.remove();
     }
@@ -17,34 +16,27 @@ Router = Backbone.Router.extend({
     $('main').html(this.currentView.render());
   },
 
-  create: function () {
+  new: function () {
     var dog = new Dog();
-    var id = dogs.length;
     dogs.add(dog);
-    router.navigate('dogs/'+id+'/update', {trigger: true});
-  },
-
-  update: function (id) {
-    var dog = dogs.at(id);
     dog.editView = new DogEditView({model: dog});
-    this.showView(dog.editView);
+    this.displayView(dog.editView);
   },
 
-  destroy: function (id) {
-    var dog = dogs.at(id);
-    if (window.confirm("Do you really want to destroy this dog?")) {
-      dog.destroy();
-    }
-    router.navigate('dogs', {trigger: true});
+  edit: function (id) {
+    var dog = dogs.get(id);
+    dog.editView = new DogEditView({model: dog});
+    this.displayView(dog.editView);
   },
 
   show: function (id) {
-    var dog = dogs.at(id);
+    var dog = dogs.get(id);
     dog.view = new DogShowView({model: dog});
-    this.showView(dog.view);
+    this.displayView(dog.view);
   },
 
   index: function () {
-    this.showView(dogs.view);
+    dogs.view = new DogsIndexView({collection: dogs});
+    this.displayView(dogs.view);
   }
 });
