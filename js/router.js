@@ -6,7 +6,7 @@ Router = Backbone.Router.extend({
     'dogs/:id': 'show',        // #dogs/1
     'dogs': 'index',           // #dogs
     '': 'index'                // #
-  }, 
+  },
 
   displayView: function (view) {
     if (this.currentView) {
