@@ -10,9 +10,9 @@ Router = Backbone.Router.extend({
 
   before: function (callback) {
     if (dogs.models.length) {
-        callback();
+      callback();
     } else {
-       $.when(dogs.fetch()).then(function () {
+      $.when(dogs.fetch()).then(function () {
         callback();
       });
     }
