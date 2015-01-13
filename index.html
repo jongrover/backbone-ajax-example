@@ -14,7 +14,8 @@
     <% _.each(dogs, function (dog) { %>
       <div class="dog">
         <h2><%= dog.fullname %></h2>
-        <p>age: <%= dog.age %><br>
+        <p>id: <%= dog.id %><br>
+        age: <%= dog.age %><br>
         fleas: <%= dog.fleas %></p>
         <p><a class="show" href="#dogs/<%= dog.id %>">Show</a><br>
         <a class="edit" href="#dogs/<%= dog.id %>/edit">Edit</a><br>
@@ -26,7 +27,8 @@
 
   <script type="text/template" id="dog-show-template">
     <h1><%= dog.fullname %></h1>
-    <p>age: <%= dog.age %><br>
+    <p>id: <%= dog.id %><br>
+    age: <%= dog.age %><br>
     fleas: <%= dog.fleas %></p>
     <p><a class="edit" href="#dogs/<%= dog.id %>/edit">Edit</a><br>
     <a class="destroy" href="#">Destroy</a><br>

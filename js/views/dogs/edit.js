@@ -37,7 +37,7 @@ DogEditView = Backbone.View.extend({
       this.$el.html(this.template({adj: 'Edit', verb: 'Update', dog: this.model.toJSON()}));
       return this.el;
     } else {
-      this.$el.html(this.template({adj: 'New', verb: 'Create', dog: {fullname: null, age: null, fleas: null}}));
+      this.$el.html(this.template({adj: 'New', verb: 'Create', dog: {fullname: 'unknown', age: 0, fleas: false}}));
       return this.el;
     }
   }

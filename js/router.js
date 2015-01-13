@@ -8,6 +8,16 @@ Router = Backbone.Router.extend({
     '': 'index'                // #
   },
 
+  before: function (callback) {
+    if (dogs.models.length) {
+        callback();
+    } else {
+       $.when(dogs.fetch()).then(function () {
+        callback();
+      });
+    }
+  },
+
   displayView: function (view) {
     if (this.currentView) {
       this.currentView.remove();
@@ -17,23 +27,35 @@ Router = Backbone.Router.extend({
   },
 
   new: function () {
-    this.displayView(new DogEditView());
+    var self = this;
+    this.before(function () {
+      self.displayView(new DogEditView());
+    });
   },
 
   edit: function (id) {
-    var dog = dogs.get(id);
-    dog.editView = new DogEditView({model: dog});
-    this.displayView(dog.editView);
+    var self = this;
+    this.before(function () {
+      var dog = dogs.get(id);
+      dog.editView = new DogEditView({model: dog});
+      self.displayView(dog.editView);
+    });
   },
 
   show: function (id) {
-    var dog = dogs.get(id);
-    dog.view = new DogShowView({model: dog});
-    this.displayView(dog.view);
+    var self = this;
+    this.before(function () {
+      var dog = dogs.get(id);
+      dog.view = new DogShowView({model: dog});
+      self.displayView(dog.view);
+    });
   },
 
   index: function () {
-    dogs.view = new DogsIndexView({collection: dogs});
-    this.displayView(dogs.view);
+    var self = this;
+    this.before(function () {
+      dogs.view = new DogsIndexView({collection: dogs});
+      self.displayView(dogs.view);
+    });
   }
 });

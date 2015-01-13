@@ -26,12 +26,6 @@ Dog = Backbone.Model.extend({
 
 Dogs = Backbone.Collection.extend({
 
-  initialize: function () {
-    this.on('sync', function () {
-      router.navigate('dogs', {trigger: true});
-    });
-  },
-
   model: Dog,
 
   url: 'http://localhost:3000/dogs'
